@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">To-Do List</h1>
+        <form id="todoForm" class="mb-4">
+            <div class="mb-3">
+                <label for="task" class="form-label">Isi Tugas</label>
+                <input type="text" class="form-control" id="task" required>
+            </div>
+            <div class="mb-3">
+                <label for="startDate" class="form-label">Tanggal Awal</label>
+                <input type="date" class="form-control" id="startDate" required>
+            </div>
+            <div class="mb-3">
+                <label for="endDate" class="form-label">Tanggal Akhir</label>
+                <input type="date" class="form-control" id="endDate" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Tambah Tugas</button>
+        </form>
+        <ul class="list-group" id="todoList"></ul>
+    </div>
+
+    <script>
+        document.getElementById('todoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const task = document.getElementById('task').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            listItem.innerHTML = `
+                <span>${task} (Dari: ${startDate} Sampai: ${endDate})</span>
+                <button class="btn btn-danger btn-sm">Hapus</button>
+            `;
+
+            listItem.querySelector('button').addEventListener('click', function() {
+                listItem.remove();
+            });
+
+            document.getElementById('todoList').appendChild(listItem);
+
+            // Clear the form
+            document.getElementById('todoForm').reset();
+        });
+    </script>
+</body>
+</html>
